@@ -30,7 +30,15 @@ namespace Mortgage_Calculator.Controllers
 
         public IActionResult App()
         {
-            return View();
+            // This gets the 
+            Loan loan = new();
+            loan.Payment = 0.0m;
+            loan.TotalInterest = 0.0m;
+            loan.TotalCost = 0.0m;
+            loan.Rate = 3.5m;
+            loan.Amount = 150000m;
+            loan.Term = 60;
+            return View(loan);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
