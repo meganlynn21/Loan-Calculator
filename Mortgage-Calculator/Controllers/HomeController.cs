@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Mortgage_Calculator.Helpers;
 
 namespace Mortgage_Calculator.Controllers
 {
@@ -38,8 +39,26 @@ namespace Mortgage_Calculator.Controllers
             loan.Rate = 3.5m;
             loan.Amount = 150000m;
             loan.Term = 60;
+
             return View(loan);
         }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult App(Loan loan)
+        {
+            // Calculate the loan and get the payments
+            var loanHelper = new LoanHelper();
+
+            Loan newLoan = loanHelper.GetPayments(loan);
+
+            // Return new loan to the View
+            return View(newLoan);
+        }
+
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
